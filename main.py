@@ -1,14 +1,20 @@
 import pygame
 from sys import exit
 from classes import *
+from functions import *
 
 class Game:
-    def __init__(self, title):
+    def __init__(self, width_percent, height_percent, title):
         pygame.init()
         pygame.display.set_caption(title)
+
+        info = pygame.display.Info()
+
+        width = getPercent(info.current_w, width_percent)
+        height = getPercent(info.current_h, height_percent)
         
-        self.SCREEN = pygame.display.set_mode((500, 500))
-        self.BG_COLOR = 'red'
+        self.SCREEN = pygame.display.set_mode((width, height))
+        self.BG_COLOR = 'black'
 
         self.CLOCK = Clock(60)
     
@@ -29,5 +35,5 @@ class Game:
             self.CLOCK.tick()
 
 if __name__ == '__main__':
-    game = Game('Agario')
+    game = Game(50, 70, 'Agario')
     game.run()
