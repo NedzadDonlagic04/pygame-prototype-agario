@@ -17,8 +17,14 @@ class Player:
         self.HEIGHT = height
         self.SPEED = 10
 
+        self.aboveLineHeight = getPercent(self.HEIGHT, 10)
         self.createCircle(circle_radius)
-        self.createLine(5, 10)
+        self.createLine(5)
+
+    def strCircleArea(self, circle_radius):
+        area = math.pow(circle_radius, 2) * math.pi
+        area = round(area)
+        return 'Total  Circle  Area: ' + str(area) 
 
     def createCircle(self, circle_radius):
         ball_img = pygame.Surface((2 * circle_radius, 2 * circle_radius), pygame.SRCALPHA)
@@ -26,26 +32,20 @@ class Player:
         self.image = ball_img
         self.rect = self.image.get_rect( center = self.pos )
 
-        self.createScore(str(circle_radius * 2), getPercent(circle_radius, 50))
+        self.score = self.createText(str(circle_radius * 2), getPercent(circle_radius, 50))
 
-        area = math.pow(circle_radius, 2) * math.pi
-        area = round(area)
-        text = 'Total  Circle  Area: ' + str(area) 
-        self.createText(text, getPercent(getPercent(self.HEIGHT, 10), 90))
-        self.text_rect = self.text.get_rect( center = (self.WIDTH/2, getPercent(self.HEIGHT, 10) / 2) )
+        areaText = self.strCircleArea(circle_radius)
+        self.text = self.createText(areaText, getPercent(self.aboveLineHeight, 90))
+        self.text_rect = self.text.get_rect( center = (self.WIDTH/2, self.aboveLineHeight / 2) )
 
-    def createLine(self, line_height, screen_percent):
+    def createLine(self, line_width):
         line_img = pygame.image.load('./img/line.png').convert()
-        self.line_img = pygame.transform.scale(line_img, (self.WIDTH, line_height))
-        self.line_rect = line_img.get_rect( topleft = (0, getPercent(self.HEIGHT, screen_percent)) )
-
-    def createScore(self, text, font_size, color='white'):
-        font = pygame.font.Font('./fonts/Pixeltype.ttf', font_size)
-        self.score = font.render(text, False, color)
+        self.line_img = pygame.transform.scale(line_img, (self.WIDTH, line_width))
+        self.line_rect = line_img.get_rect( topleft = (0, self.aboveLineHeight) )
 
     def createText(self, text, font_size, color='white'):
         font = pygame.font.Font('./fonts/Pixeltype.ttf', font_size)
-        self.text = font.render(text, False, color)
+        return font.render(text, False, color)
 
     def update(self):
         keys = pygame.key.get_pressed()
