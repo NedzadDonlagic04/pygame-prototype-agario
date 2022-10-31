@@ -20,8 +20,13 @@ class Game:
 
         circle_radius = 50
         offsetX, offsetY = 10, 10
+        player_color = 'orange'
 
-        self.PLAYER = Player(circle_radius, 'red', (circle_radius + offsetX, height - circle_radius - offsetY), width, height)
+        self.PLAYER = Player(circle_radius, player_color, (circle_radius + offsetX, height - circle_radius - offsetY), width, height)
+
+        e_circle_radius = 30
+        enemy_color = 'red'
+        self.ENEMIES = [Enemy(e_circle_radius, enemy_color, (300, 300))]
     
     def quit(self):
         pygame.quit()
@@ -34,6 +39,9 @@ class Game:
                     self.quit()
 
             self.SCREEN.fill(self.BG_COLOR)
+
+            for ENEMY in self.ENEMIES:
+                ENEMY.draw(self.SCREEN)
 
             self.PLAYER.update()
             self.PLAYER.draw(self.SCREEN)
