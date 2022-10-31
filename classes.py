@@ -64,3 +64,21 @@ class Player:
         screen.blit(self.score, self.score_rect)
         screen.blit(self.line_img, self.line_rect)
         screen.blit(self.text, self.text_rect)
+
+class Enemy:
+    def __init__(self, circle_radius, color, pos):
+        ball_img = pygame.Surface((2 * circle_radius, 2 * circle_radius), pygame.SRCALPHA)
+        pygame.draw.circle(ball_img, color, (circle_radius, circle_radius) , circle_radius)
+        self.image = ball_img
+        self.rect = self.image.get_rect( center = pos )
+
+        self.score = self.createText(str(circle_radius * 2), getPercent(circle_radius, 50))
+        self.score_rect = self.score.get_rect( center = self.rect.center )
+
+    def createText(self, text, font_size, color='white'):
+        font = pygame.font.Font('./fonts/Pixeltype.ttf', font_size)
+        return font.render(text, False, color)
+    
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
+        screen.blit(self.score, self.score_rect)
