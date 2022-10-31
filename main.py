@@ -17,6 +17,11 @@ class Game:
         self.BG_COLOR = 'black'
 
         self.CLOCK = Clock(60)
+
+        circle_radius = 50
+        offsetX, offsetY = 10, 10
+
+        self.PLAYER = pygame.sprite.GroupSingle( Player(circle_radius, 'red', (circle_radius + offsetX, height - circle_radius - offsetY), width, height) )
     
     def quit(self):
         pygame.quit()
@@ -29,6 +34,9 @@ class Game:
                     self.quit()
 
             self.SCREEN.fill(self.BG_COLOR)
+
+            self.PLAYER.update()
+            self.PLAYER.draw(self.SCREEN)
 
             pygame.display.update()
 
