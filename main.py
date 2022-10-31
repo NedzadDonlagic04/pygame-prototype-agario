@@ -21,7 +21,7 @@ class Game:
         circle_radius = 50
         offsetX, offsetY = 10, 10
 
-        self.PLAYER = pygame.sprite.GroupSingle( Player(circle_radius, 'red', (circle_radius + offsetX, height - circle_radius - offsetY), width, height) )
+        self.PLAYER = Player(circle_radius, 'red', (circle_radius + offsetX, height - circle_radius - offsetY), width, height)
     
     def quit(self):
         pygame.quit()
