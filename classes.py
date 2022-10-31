@@ -1,5 +1,5 @@
 import pygame
-
+import math
 from functions import getPercent
 class Clock:
     def __init__(self, fps):
@@ -26,10 +26,16 @@ class Player:
         self.image = ball_img
         self.rect = self.image.get_rect( center = self.pos )
 
+        self.createScore(str(circle_radius * 2), getPercent(circle_radius, 50))
+
     def createLine(self, width, height, line_height, screen_percent):
         line_img = pygame.image.load('./img/line.png').convert()
         self.line_img = pygame.transform.scale(line_img, (width, line_height))
         self.line_rect = line_img.get_rect( topleft = (0, getPercent(height, screen_percent)) )
+
+    def createScore(self, text, font_size, color='white'):
+        font = pygame.font.Font('./fonts/Pixeltype.ttf', font_size)
+        self.text = font.render(text, False, color)
 
     def update(self):
         keys = pygame.key.get_pressed()
@@ -41,8 +47,9 @@ class Player:
             self.rect.right += self.SPEED
         elif keys[pygame.K_a] and self.rect.left - self.SPEED >= 0:
             self.rect.left -= self.SPEED
+        self.text_rect = self.text.get_rect( center = self.rect.center )
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+        screen.blit(self.text, self.text_rect)
         screen.blit(self.line_img, self.line_rect)
-        pygame.display.flip()
