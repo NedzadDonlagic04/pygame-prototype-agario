@@ -18,7 +18,7 @@ class Player:
         self.SPEED = 10
 
         self.createCircle(circle_radius)
-        self.createLine(width, height, 5, 10)
+        self.createLine(5, 10)
 
     def createCircle(self, circle_radius):
         ball_img = pygame.Surface((2 * circle_radius, 2 * circle_radius), pygame.SRCALPHA)
@@ -28,12 +28,22 @@ class Player:
 
         self.createScore(str(circle_radius * 2), getPercent(circle_radius, 50))
 
-    def createLine(self, width, height, line_height, screen_percent):
+        area = math.pow(circle_radius, 2) * math.pi
+        area = round(area)
+        text = 'Total  Circle  Area: ' + str(area) 
+        self.createText(text, getPercent(getPercent(self.HEIGHT, 10), 90))
+        self.text_rect = self.text.get_rect( center = (self.WIDTH/2, getPercent(self.HEIGHT, 10) / 2) )
+
+    def createLine(self, line_height, screen_percent):
         line_img = pygame.image.load('./img/line.png').convert()
-        self.line_img = pygame.transform.scale(line_img, (width, line_height))
-        self.line_rect = line_img.get_rect( topleft = (0, getPercent(height, screen_percent)) )
+        self.line_img = pygame.transform.scale(line_img, (self.WIDTH, line_height))
+        self.line_rect = line_img.get_rect( topleft = (0, getPercent(self.HEIGHT, screen_percent)) )
 
     def createScore(self, text, font_size, color='white'):
+        font = pygame.font.Font('./fonts/Pixeltype.ttf', font_size)
+        self.score = font.render(text, False, color)
+
+    def createText(self, text, font_size, color='white'):
         font = pygame.font.Font('./fonts/Pixeltype.ttf', font_size)
         self.text = font.render(text, False, color)
 
@@ -47,9 +57,10 @@ class Player:
             self.rect.right += self.SPEED
         elif keys[pygame.K_a] and self.rect.left - self.SPEED >= 0:
             self.rect.left -= self.SPEED
-        self.text_rect = self.text.get_rect( center = self.rect.center )
+        self.score_rect = self.score.get_rect( center = self.rect.center )
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
-        screen.blit(self.text, self.text_rect)
+        screen.blit(self.score, self.score_rect)
         screen.blit(self.line_img, self.line_rect)
+        screen.blit(self.text, self.text_rect)
