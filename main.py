@@ -40,8 +40,21 @@ class Game:
 
             self.SCREEN.fill(self.BG_COLOR)
 
-            for ENEMY in self.ENEMIES:
-                ENEMY.draw(self.SCREEN)
+            for i in range(0, len(self.ENEMIES)):
+                self.ENEMIES[i].draw(self.SCREEN)
+
+                pointA = self.PLAYER.rect.center
+                pointB = self.ENEMIES[i].rect.center
+
+                # distance
+                d = getDistance(pointA[0], pointA[1], pointB[0], pointB[1])
+
+                if d < self.PLAYER.circle_radius:
+                    self.PLAYER.createCircle(self.ENEMIES[i].circle_radius)
+                    self.ENEMIES = []
+                    break
+                elif d > self.PLAYER.circle_radius and self.PLAYER.circle_radius < self.ENEMIES[i].circle_radius:
+                    self.quit()
 
             self.PLAYER.update()
             self.PLAYER.draw(self.SCREEN)
