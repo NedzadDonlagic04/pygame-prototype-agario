@@ -24,7 +24,6 @@ class Game:
 
         self.PLAYER = Player(circleRadius, player_color, (circleRadius + offsetX, height - circleRadius - offsetY), width, height)
 
-        e_circleRadius = 30
         enemyColor = 'red'
         self.ENEMIES = [
             Enemy(30, enemyColor, (300, 300)),
