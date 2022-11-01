@@ -16,6 +16,7 @@ class Player:
         self.WIDTH = width
         self.HEIGHT = height
         self.SPEED = 10
+        self.circle_radius = 0
 
         self.aboveLineHeight = getPercent(self.HEIGHT, 10)
         self.createCircle(circle_radius)
@@ -27,14 +28,16 @@ class Player:
         return 'Total  Circle  Area: ' + str(area) 
 
     def createCircle(self, circle_radius):
-        ball_img = pygame.Surface((2 * circle_radius, 2 * circle_radius), pygame.SRCALPHA)
-        pygame.draw.circle(ball_img, self.COLOR, (circle_radius, circle_radius) , circle_radius)
+        self.circle_radius += circle_radius
+
+        ball_img = pygame.Surface((2 * self.circle_radius, 2 * self.circle_radius), pygame.SRCALPHA)
+        pygame.draw.circle(ball_img, self.COLOR, (self.circle_radius, self.circle_radius) , self.circle_radius)
         self.image = ball_img
         self.rect = self.image.get_rect( center = self.pos )
 
-        self.score = self.createText(str(circle_radius * 2), getPercent(circle_radius, 50))
+        self.score = self.createText(str(self.circle_radius * 2), getPercent(self.circle_radius, 50))
 
-        areaText = self.strCircleArea(circle_radius)
+        areaText = self.strCircleArea(self.circle_radius)
         self.text = self.createText(areaText, getPercent(self.aboveLineHeight, 90))
         self.text_rect = self.text.get_rect( center = (self.WIDTH/2, self.aboveLineHeight / 2) )
 
@@ -58,6 +61,7 @@ class Player:
         elif keys[pygame.K_a] and self.rect.left - self.SPEED >= 0:
             self.rect.left -= self.SPEED
         self.score_rect = self.score.get_rect( center = self.rect.center )
+        self.pos = self.rect.center
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -71,6 +75,8 @@ class Enemy:
         pygame.draw.circle(ball_img, color, (circle_radius, circle_radius) , circle_radius)
         self.image = ball_img
         self.rect = self.image.get_rect( center = pos )
+
+        self.circle_radius = circle_radius
 
         self.score = self.createText(str(circle_radius * 2), getPercent(circle_radius, 50))
         self.score_rect = self.score.get_rect( center = self.rect.center )
