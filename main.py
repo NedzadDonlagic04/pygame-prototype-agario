@@ -28,8 +28,8 @@ class Game:
         enemyColor = 'red'
         self.ENEMIES = [
             Enemy(30, enemyColor, (300, 300)),
-            Enemy(70, enemyColor, (500, 500)),
-            Enemy(70, enemyColor, (600, 300))
+            Enemy(50, enemyColor, (500, 500)),
+            Enemy(100, enemyColor, (600, 300))
         ]
     
     def quit(self):
