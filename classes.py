@@ -35,6 +35,15 @@ class Player:
         self.image = ball_img
         self.rect = self.image.get_rect( center = self.pos )
 
+        if self.rect.right > self.WIDTH:
+            self.rect.right = self.WIDTH
+        elif self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.bottom > self.HEIGHT:
+            self.rect.bottom = self.HEIGHT
+        elif self.rect.top < self.aboveLineHeight:
+            self.rect.top = self.aboveLineHeight
+
         self.score = self.createText(str(self.circle_radius * 2), getPercent(self.circle_radius, 50))
 
         areaText = self.strCircleArea(self.circle_radius)
