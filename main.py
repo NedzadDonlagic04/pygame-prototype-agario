@@ -26,7 +26,11 @@ class Game:
 
         e_circle_radius = 30
         enemy_color = 'red'
-        self.ENEMIES = [Enemy(e_circle_radius, enemy_color, (300, 300))]
+        self.ENEMIES = [
+            Enemy(e_circle_radius, enemy_color, (300, 300)),
+            Enemy(e_circle_radius, enemy_color, (500, 500)),
+            Enemy(e_circle_radius, enemy_color, (600, 300))
+        ]
     
     def quit(self):
         pygame.quit()
@@ -51,7 +55,7 @@ class Game:
 
                 if d < self.PLAYER.circle_radius:
                     self.PLAYER.createCircle(self.ENEMIES[i].circle_radius)
-                    self.ENEMIES = []
+                    del self.ENEMIES[i]
                     break
                 elif d > self.PLAYER.circle_radius and self.PLAYER.circle_radius < self.ENEMIES[i].circle_radius:
                     self.quit()
