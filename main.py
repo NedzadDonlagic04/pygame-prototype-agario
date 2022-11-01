@@ -28,7 +28,7 @@ class Game:
         enemy_color = 'red'
         self.ENEMIES = [
             Enemy(30, enemy_color, (300, 300)),
-            Enemy(50, enemy_color, (500, 500)),
+            Enemy(70, enemy_color, (500, 500)),
             Enemy(70, enemy_color, (600, 300))
         ]
     
