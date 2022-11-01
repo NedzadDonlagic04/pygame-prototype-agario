@@ -19,8 +19,9 @@ class Player:
         self.circle_radius = 0
 
         self.aboveLineHeight = getPercent(self.HEIGHT, 10)
+        self.lineWidth = 5
         self.createCircle(circle_radius)
-        self.createLine(5)
+        self.createLine(self.lineWidth)
 
     def strCircleArea(self, circle_radius):
         area = math.pow(circle_radius, 2) * math.pi
@@ -42,7 +43,7 @@ class Player:
         if self.rect.bottom > self.HEIGHT:
             self.rect.bottom = self.HEIGHT
         elif self.rect.top < self.aboveLineHeight:
-            self.rect.top = self.aboveLineHeight
+            self.rect.top = self.aboveLineHeight + self.lineWidth
 
         self.score = self.createText(str(self.circle_radius * 2), getPercent(self.circle_radius, 50))
 
