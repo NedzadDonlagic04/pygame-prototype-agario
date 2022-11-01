@@ -18,18 +18,18 @@ class Game:
 
         self.CLOCK = Clock(60)
 
-        circle_radius = 50
+        circleRadius = 50
         offsetX, offsetY = 10, 10
         player_color = 'orange'
 
-        self.PLAYER = Player(circle_radius, player_color, (circle_radius + offsetX, height - circle_radius - offsetY), width, height)
+        self.PLAYER = Player(circleRadius, player_color, (circleRadius + offsetX, height - circleRadius - offsetY), width, height)
 
-        e_circle_radius = 30
-        enemy_color = 'red'
+        e_circleRadius = 30
+        enemyColor = 'red'
         self.ENEMIES = [
-            Enemy(30, enemy_color, (300, 300)),
-            Enemy(70, enemy_color, (500, 500)),
-            Enemy(70, enemy_color, (600, 300))
+            Enemy(30, enemyColor, (300, 300)),
+            Enemy(70, enemyColor, (500, 500)),
+            Enemy(70, enemyColor, (600, 300))
         ]
     
     def quit(self):
@@ -53,11 +53,11 @@ class Game:
                 # distance
                 d = getDistance(pointA[0], pointA[1], pointB[0], pointB[1])
 
-                if d < self.PLAYER.circle_radius:
-                    if self.PLAYER.circle_radius < self.ENEMIES[i].circle_radius:
+                if d < self.PLAYER.circleRadius:
+                    if self.PLAYER.circleRadius < self.ENEMIES[i].circleRadius:
                         self.quit()
-                    elif self.PLAYER.circle_radius > self.ENEMIES[i].circle_radius:
-                        self.PLAYER.createCircle(self.ENEMIES[i].circle_radius)
+                    elif self.PLAYER.circleRadius > self.ENEMIES[i].circleRadius:
+                        self.PLAYER.createCircle(self.ENEMIES[i].circleRadius)
                         del self.ENEMIES[i]
                         break
 
