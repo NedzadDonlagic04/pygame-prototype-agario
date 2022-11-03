@@ -41,6 +41,18 @@ class Game:
         for i in range(0, len(enemyRanges)):
             self.ENEMIES.append(generateEnemy( enemyRanges[i], getPercent(height, 10), height, 0, width))
 
+            while True:
+                pointB = self.ENEMIES[i].rect.center
+                pointA = self.PLAYER.rect.center
+
+                # distance
+                d = getDistance(pointA[0], pointA[1], pointB[0], pointB[1])
+
+                if d < self.PLAYER.circleRadius:
+                    self.ENEMIES[i] = generateEnemy( enemyRanges[i], getPercent(height, 10), height, 0, width)
+                else:
+                    break
+                
     def quit(self):
         pygame.quit()
         exit()
