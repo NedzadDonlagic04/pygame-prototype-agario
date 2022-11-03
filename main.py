@@ -1,5 +1,6 @@
 import pygame
 from sys import exit
+from random import randrange
 from classes import *
 from functions import *
 
@@ -24,13 +25,22 @@ class Game:
 
         self.PLAYER = Player(circleRadius, player_color, (circleRadius + offsetX, height - circleRadius - offsetY), width, height)
 
-        enemyColor = 'red'
-        self.ENEMIES = [
-            Enemy(30, enemyColor, (300, 300)),
-            Enemy(50, enemyColor, (500, 500)),
-            Enemy(100, enemyColor, (600, 300))
+        def generateEnemy(radiusRange, heightStart, heightEnd, widthStart, widthEnd, enemyColor='red'):
+            radius = randrange(radiusRange[0], radiusRange[1], 1)
+            y = randrange(heightStart + radius, heightEnd - radius, 1)
+            x = randrange(widthStart + radius, widthEnd - radius, 1)
+
+            return Enemy(radius, enemyColor, (x, y))
+        
+        self.ENEMIES = []
+        enemyRanges = [
+            (40, self.PLAYER.circleRadius - 1),
+            (self.PLAYER.circleRadius, self.PLAYER.circleRadius + 10),
+            (100, 120)
         ]
-    
+        for i in range(0, len(enemyRanges)):
+            self.ENEMIES.append(generateEnemy( enemyRanges[i], getPercent(height, 10), height, 0, width))
+
     def quit(self):
         pygame.quit()
         exit()
